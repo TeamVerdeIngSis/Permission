@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  permission:
+    container_name: "permission-service"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8080
+    environment:
+      DB_HOST: db_permission
+      DB_PORT: 5432
+      DB_NAME: permission-db
+      DB_USER: sa
+      DB_PASSWORD: password
+    depends_on:
+      - db_permission
+    networks:
+      - app-network
+
+  db_permission:
+    container_name: db_permission
+    image: postgres:12
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: permission-db
+    volumes:
+      - pgdata_permission:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  pgdata_permission:
+    external: true
+
+networks:
+  app-network:
+    driver: bridge

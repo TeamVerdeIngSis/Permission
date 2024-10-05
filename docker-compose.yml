@@ -35,7 +35,6 @@ services:
 
 volumes:
   pgdata_permission:
-    external: true
 
 networks:
   app-network:

@@ -1,3 +1,4 @@
+# Existing database configuration
 spring:
   datasource:
     url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
@@ -9,3 +10,16 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # Add the security configuration under the same 'spring' key
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-ppmfishyt4u8fel3.us.auth0.com/
+          audience: dev-ppmfishyt4u8fel3.us.auth0.com
+
+# Auth0 configuration
+auth0:
+  audience: https://permissions-api
+  domain: dev-ppmfishyt4u8fel3.us.auth0.com

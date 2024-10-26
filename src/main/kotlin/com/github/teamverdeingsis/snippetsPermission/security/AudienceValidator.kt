@@ -1,4 +1,4 @@
-package com.github.teamverdeingsis.permission.security
+package com.github.teamverdeingsis.snippetsPermission.security
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.core.OAuth2Error
 import org.springframework.security.oauth2.core.OAuth2TokenValidator

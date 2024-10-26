@@ -1,4 +1,4 @@
-package com.github.teamverdeingsis.permission.security
+package com.github.teamverdeingsis.snippetsPermission.security
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.JwtValidators
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.web.SecurityFilterChain
-import com.github.teamverdeingsis.permission.security.AudienceValidator
 
 @Configuration
 @EnableWebSecurity

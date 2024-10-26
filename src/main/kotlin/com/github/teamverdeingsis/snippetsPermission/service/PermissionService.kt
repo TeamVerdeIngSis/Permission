@@ -28,6 +28,7 @@ class PermissionService(
 
     fun getPermissionsByUserId(userId: String): List<Permission> {
         return permissionRepository.findByUserId(userId)
+
     }
 
     fun getPermissionsBySnippetId(snippetId: UUID): List<Permission> {

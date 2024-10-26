@@ -1,4 +1,4 @@
-package com.github.teamverdeingsis.permission
+package com.github.teamverdeingsis.snippetsPermission
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

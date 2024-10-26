@@ -1,4 +1,4 @@
-package com.github.teamverdeingsis.permission
+package com.github.teamverdeingsis.snippetsPermission
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import org.mockito.Mockito.*
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.http.MediaType  // Import MediaType
 import com.fasterxml.jackson.databind.ObjectMapper  // Import ObjectMapper
 
 

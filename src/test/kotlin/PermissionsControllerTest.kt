@@ -1,4 +1,4 @@
-package com.github.teamverdeingsis.permission
+package com.github.teamverdeingsis.snippetsPermission
 
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

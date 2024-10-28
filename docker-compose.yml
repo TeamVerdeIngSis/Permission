@@ -1,8 +1,7 @@
 version: '3.8'
 
 services:
-  permission:
-    container_name: "permission-service"
+  permission_service:
     build:
       context: .
       dockerfile: Dockerfile

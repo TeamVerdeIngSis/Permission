@@ -1,18 +1,14 @@
 plugins {
-	id 'org.springframework.boot' version '3.0.0'  // Make sure you are using a supported Spring Boot version
+	id 'org.jetbrains.kotlin.jvm' version '1.9.25'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.25'
+	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
-	id 'org.jetbrains.kotlin.jvm' version '1.9.10'
-	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.10'
-	id 'org.jetbrains.kotlin.plugin.jpa' version '1.9.10'
+	id 'org.jetbrains.kotlinx.kover' version '0.8.2'
+	id 'maven-publish'
 }
 
 group = 'com.github.teamverdeingsis'
-version = '0.0.2-SNAPSHOT'
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
-}
+version = '0.0.1-SNAPSHOT'
 
 repositories {
 	mavenCentral()

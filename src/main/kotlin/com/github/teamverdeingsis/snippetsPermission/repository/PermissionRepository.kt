@@ -10,4 +10,6 @@ interface PermissionRepository : JpaRepository<Permission, UUID> {
     fun findByUserId(userId: String): List<Permission>
     fun findBySnippetId(snippetId: UUID): List<Permission>
     fun findByUserIdAndSnippetId(userId: String, snippetId: UUID): Permission?
+    fun findSnippetsByUserId(userId: String): List<Permission>?
+
 }

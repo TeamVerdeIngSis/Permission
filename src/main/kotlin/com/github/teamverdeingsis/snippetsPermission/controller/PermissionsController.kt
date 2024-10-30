@@ -38,4 +38,9 @@ class PermissionsController(
     fun getPermissionByUserIdAndSnippetId(@PathVariable userId: String, @PathVariable snippetId: UUID): Permission? {
         return permissionService.getPermissionByUserIdAndSnippetId(userId, snippetId)
     }
+
+    @GetMapping("/user/{userId}/snippets")
+    fun getSnippetsByUserId(@PathVariable userId: String): List<UUID> {
+        return permissionService.getSnippetsByUserId(userId)
+    }
 }

@@ -21,5 +21,5 @@ spring:
 
 # Auth0 configuration
 auth0:
-  audience: https://permissions-api
+  audience: https://snippets-search/
   domain: dev-ppmfishyt4u8fel3.us.auth0.com

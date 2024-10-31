@@ -26,13 +26,6 @@ services:
       POSTGRES_USER: sa
       POSTGRES_PASSWORD: password
       POSTGRES_DB: permission-db
-      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
-      AUTH_SERVER_URI: ${AUTH_SERVER_URI}
-      AUTH_CLIENT_ID: ${AUTH_CLIENT_ID}
-      AUTH_CLIENT_SECRET: ${AUTH_CLIENT_SECRET}
-      spring.security.oauth2.resourceserver.jwt.issuer-uri: ${AUTH_SERVER_URI}
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI}
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     volumes:
       - data_permission:/var/lib/postgresql/data
     networks:

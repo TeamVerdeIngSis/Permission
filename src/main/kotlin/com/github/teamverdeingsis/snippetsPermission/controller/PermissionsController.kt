@@ -19,6 +19,11 @@ class PermissionsController(
         return permissionService.getAllPermissions()
     }
 
+    @GetMapping("/helloNga")
+    fun hello(): String {
+        return "Hello, World!"
+    }
+
     @PostMapping("/snippetId/")
     fun createPermission(@RequestBody userId: String, snippetId: UUID, permission: PermissionType): Permission {
         return permissionService.createPermission(userId, snippetId, permission)

@@ -2,47 +2,33 @@ version: '3.8'
 
 services:
 
-  permission_service:
+  permission_api:
     build:
       context: .
       dockerfile: Dockerfile
+    platform: linux/amd64
     ports:
-      - '8080:8080'
+      - '8085:8085'
     environment:
-      DB_URL: jdbc:postgresql://db_permission:5432/permission-db
-      DB_HOST: db_permission
-      DB_PORT: 5432
-      DB_NAME: permission-db
-      DB_USER: sa
-      DB_PASSWORD: password
+      POSTGRES_HOST: permission_db
+      POSTGRES_DB: p_db
+      POSTGRES_USER: p_user
+      POSTGRES_PASSWORD: p_password
+      POSTGRES_PORT: 5434
+    depends_on:
+      - permission_db
 
-
-  db_permission:
-    container_name: db_permission
-    image: postgres:12
+  permission_db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: p_db
+      POSTGRES_USER: p_user
+      POSTGRES_PASSWORD: p_password
     ports:
-      - 5436:5432
-    environment:
-      POSTGRES_USER: sa
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: permission-db
-      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
-      AUTH_SERVER_URI: ${AUTH_SERVER_URI}
-      AUTH_CLIENT_ID: ${AUTH_CLIENT_ID}
-      AUTH_CLIENT_SECRET: ${AUTH_CLIENT_SECRET}
-      spring.security.oauth2.resourceserver.jwt.issuer-uri: ${AUTH_SERVER_URI}
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI}
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      - "5435:5432"
     volumes:
-      - data_permission:/var/lib/postgresql/data
-    networks:
-      - app-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U sa"]
-      interval: 30s
-      retries: 5
+      - p_db_data:/var/lib/postgresql/data
 
 volumes:
-  data_permission:
+  p_db_data:
     external: false

@@ -1,5 +1,7 @@
 package com.github.teamverdeingsis.snippetsPermission.controller
 
+import CreatePermissionRequest
+import com.github.teamverdeingsis.snippetsPermission.DTO.PermissionOfUserInSnippet
 import com.github.teamverdeingsis.snippetsPermission.model.Permission
 import com.github.teamverdeingsis.snippetsPermission.model.PermissionType
 import com.github.teamverdeingsis.snippetsPermission.service.PermissionService
@@ -19,14 +21,22 @@ class PermissionsController(
         return permissionService.getAllPermissions()
     }
 
-    @PostMapping("/snippetId/")
-    fun createPermission(@RequestBody userId: String, snippetId: UUID, permission: PermissionType): Permission {
-        return permissionService.createPermission(userId, snippetId, permission)
+    @GetMapping("/helloNga")
+    fun hello(): String {
+        return "Hello, World!"
+    }
+
+    @PostMapping("/create")
+    fun createPermission(@RequestBody createPermissionRequest: CreatePermissionRequest): Permission {
+        return permissionService.createPermission(createPermissionRequest.userId, createPermissionRequest.snippetId, createPermissionRequest.permission)
     }
 
     @GetMapping("/user/{userId}")
     fun getPermissionsByUserId(@PathVariable userId: String): List<Permission> {
-        return permissionService.getPermissionsByUserId(userId)
+        println("no sigo maaas")
+        val response = permissionService.getPermissionsByUserId(userId)
+        println(response)
+        return response
     }
 
     @GetMapping("/snippet/{snippetId}")
@@ -34,13 +44,14 @@ class PermissionsController(
         return permissionService.getPermissionsBySnippetId(snippetId)
     }
 
-    @GetMapping("/user/{userId}/snippet/{snippetId}")
-    fun getPermissionByUserIdAndSnippetId(@PathVariable userId: String, @PathVariable snippetId: UUID): Permission? {
-        return permissionService.getPermissionByUserIdAndSnippetId(userId, snippetId)
+    @GetMapping("/permission")
+    fun getPermissionByUserIdAndSnippetId(@RequestBody permissionOfUserInSnippet: PermissionOfUserInSnippet): Permission? {
+        return permissionService.getPermissionByUserIdAndSnippetId(permissionOfUserInSnippet.userId, permissionOfUserInSnippet.snippetId)
     }
 
-    @GetMapping("/user/{userId}/snippets")
-    fun getSnippetsByUserId(@PathVariable userId: String): List<UUID> {
-        return permissionService.getSnippetsByUserId(userId)
+    @PostMapping("/share")
+    fun shareSnippet(@RequestBody permissionOfUserInSnippet: PermissionOfUserInSnippet): Permission {
+        val permission = PermissionType.READ
+        return permissionService.createPermission(permissionOfUserInSnippet.userId, permissionOfUserInSnippet.snippetId, permission)
     }
 }

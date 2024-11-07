@@ -19,6 +19,7 @@ class PermissionService(
     fun createPermission(userId: String, snippetId: UUID, permissionType: PermissionType): Permission {
         val existingPermission = permissionRepository.findByUserIdAndSnippetId(userId, snippetId)
         if (existingPermission != null) {
+            println("JAAAA")
             return existingPermission
             //TODO, esta mal esto, deberia tirar alguna excepcion
         }
@@ -27,7 +28,14 @@ class PermissionService(
     }
 
     fun getPermissionsByUserId(userId: String): List<Permission> {
-        return permissionRepository.findByUserId(userId)
+        val response = permissionRepository.findByUserId(userId)
+        if (response.isEmpty()) {
+            println("rompi toddo")
+            throw RuntimeException("User with ID $userId not found")
+        }
+        println("no rompi nada")
+        println(response)
+        return response
     }
 
     fun getPermissionsBySnippetId(snippetId: UUID): List<Permission> {

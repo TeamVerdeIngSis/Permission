@@ -20,6 +20,6 @@ data class Permission(
     @Column(name = "permission", nullable = false)
     val permission: PermissionType? = PermissionType.READ,
     @Id
-    val id: String =UUID.randomUUID().toString() ,
+    val permissionId: String =UUID.randomUUID().toString() ,
 )
 

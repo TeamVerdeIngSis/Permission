@@ -14,7 +14,7 @@ services:
       POSTGRES_DB: p_db
       POSTGRES_USER: p_user
       POSTGRES_PASSWORD: p_password
-      POSTGRES_PORT: 5432
+      POSTGRES_PORT: 5434
     depends_on:
       - permission_db
 
@@ -25,7 +25,7 @@ services:
       POSTGRES_USER: p_user
       POSTGRES_PASSWORD: p_password
     ports:
-      - "5434:5432"
+      - "5435:5432"
     volumes:
       - p_db_data:/var/lib/postgresql/data
 

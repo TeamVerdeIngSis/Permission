@@ -33,9 +33,7 @@ class PermissionsController(
 
     @GetMapping("/user/{userId}")
     fun getPermissionsByUserId(@PathVariable userId: String): List<Permission> {
-        println("no sigo maaas")
         val response = permissionService.getPermissionsByUserId(userId)
-        println(response)
         return response
     }
 

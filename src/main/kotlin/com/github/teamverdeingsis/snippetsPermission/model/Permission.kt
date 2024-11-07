@@ -4,8 +4,6 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.util.UUID
@@ -22,7 +20,6 @@ data class Permission(
     @Column(name = "permission", nullable = false)
     val permission: PermissionType? = PermissionType.READ,
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: UUID = UUID.randomUUID(),
+    val id: String =UUID.randomUUID().toString() ,
 )
 

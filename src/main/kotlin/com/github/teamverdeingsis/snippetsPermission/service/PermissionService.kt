@@ -30,13 +30,6 @@ class PermissionService(
         return permissionRepository.findByUserId(userId)
     }
 
-    fun getSnippetsByUserId(userId: String): List<UUID> {
-        val userPermissions = permissionRepository.findSnippetsByUserId(userId)
-        val snippets = mutableListOf<UUID>()
-        userPermissions?.forEach { snippets.add(it.snippetId!!) }
-        return snippets
-    }
-
     fun getPermissionsBySnippetId(snippetId: UUID): List<Permission> {
         return permissionRepository.findBySnippetId(snippetId)
     }

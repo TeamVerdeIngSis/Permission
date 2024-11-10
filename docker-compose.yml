@@ -14,7 +14,7 @@ services:
       POSTGRES_DB: p_db
       POSTGRES_USER: p_user
       POSTGRES_PASSWORD: p_password
-      POSTGRES_PORT: 5434
+      POSTGRES_PORT: 5432
     depends_on:
       - permission_db
 

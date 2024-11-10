@@ -18,6 +18,8 @@ services:
     depends_on:
       - permission_db
 
+
+
   permission_db:
     image: postgres:15
     environment:

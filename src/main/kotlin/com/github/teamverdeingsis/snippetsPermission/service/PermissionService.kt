@@ -1,8 +1,10 @@
 package com.github.teamverdeingsis.snippetsPermission.service
 
+import com.github.teamverdeingsis.snippetsPermission.controller.PermissionsController
 import com.github.teamverdeingsis.snippetsPermission.model.Permission
 import com.github.teamverdeingsis.snippetsPermission.model.PermissionType
 import com.github.teamverdeingsis.snippetsPermission.repository.PermissionRepository
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
@@ -14,6 +16,10 @@ class PermissionService(
 
     fun getAllPermissions(): List<Permission> {
         return permissionRepository.findAll()
+    }
+
+    fun hola(): String {
+        return "Hola"
     }
 
     fun createPermission(userId: String, snippetId: UUID, permissionType: PermissionType): Permission {

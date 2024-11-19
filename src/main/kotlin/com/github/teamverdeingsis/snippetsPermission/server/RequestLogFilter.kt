@@ -1,4 +1,5 @@
 package com.github.teamverdeingsis.snippetsPermission.server
+
 import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
@@ -16,12 +17,9 @@ import java.io.IOException
 @Component
 @Order(2)
 class RequestLogFilter : Filter {
+
     @Throws(IOException::class, ServletException::class)
-    override fun doFilter(
-        request: ServletRequest,
-        response: ServletResponse,
-        chain: FilterChain
-    ) {
+    override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         if (request is HttpServletRequest && response is HttpServletResponse) {
 
             val uri = request.requestURI
@@ -33,10 +31,10 @@ class RequestLogFilter : Filter {
             } finally {
                 val statusCode = response.status
 
-                // Retrieve the correlation ID from MDC and log it
+                // Recuperar el CorrelationId del MDC
                 val correlationId = MDC.get(CorrelationIdFilter.CORRELATION_ID_KEY) ?: "none"
 
-                // Include correlation ID in the log
+                // Incluir el CorrelationId en el log
                 logger.info("[{}] {} - {}", correlationId, prefix, statusCode)
             }
         } else {

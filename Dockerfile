@@ -7,6 +7,12 @@ RUN gradle build --no-daemon
 
 # Second stage: Create a lightweight image for running the application
 FROM openjdk:21-slim
-EXPOSE 8089
-COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+
+RUN mkdir /app
+COPY --from=builder /home/gradle/src/build/libs/*.jar /app/app.jar
+
+COPY ./newrelic/newrelic.jar /app/newrelic.jar
+COPY ./newrelic/newrelic.yml /app/newrelic.yml
+
+ENTRYPOINT ["java","-javaagent:/app/newrelic.jar","-jar","/app/app.jar"]
+EXPOSE 8081

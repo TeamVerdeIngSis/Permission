@@ -9,10 +9,10 @@ RUN gradle build --no-daemon
 FROM openjdk:21-slim
 
 RUN mkdir /app
-COPY --from=builder /home/gradle/src/build/libs/*.jar /app/app.jar
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/app.jar
 
 COPY ./newrelic/newrelic.jar /app/newrelic.jar
 COPY ./newrelic/newrelic.yml /app/newrelic.yml
 
-ENTRYPOINT ["java","-javaagent:/app/newrelic.jar","-jar","/app/app.jar"]
+ENTRYPOINT ["java", "-javaagent:/app/newrelic.jar", "-jar", "/app/app.jar"]
 EXPOSE 8081

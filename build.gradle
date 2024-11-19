@@ -41,6 +41,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.postgresql:postgresql:42.6.0'
 
+	implementation 'com.newrelic.agent.java:newrelic-api:7.6.0'
 }
 
 kotlin {

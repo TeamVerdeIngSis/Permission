@@ -6,6 +6,7 @@ import com.github.teamverdeingsis.snippetsPermission.model.Permission
 import com.github.teamverdeingsis.snippetsPermission.model.PermissionType
 import com.github.teamverdeingsis.snippetsPermission.service.PermissionService
 import jakarta.persistence.Id
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -21,9 +22,13 @@ class PermissionsController(
         return permissionService.getAllPermissions()
     }
 
+    private val logger = LoggerFactory.getLogger(PermissionsController::class.java)
+
     @GetMapping("/helloNga")
     fun hello(): String {
-        return "Hello, World!"
+        println("Jijo")
+        logger.info("Executing /helloNga endpoint")
+        return permissionService.hola()
     }
 
     @PostMapping("/create")

@@ -1,0 +1,80 @@
+name: CI/CD Pipeline for Permissions
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  continuous-integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout del código
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Configuración del JDK 21
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          java-version: 21
+          distribution: 'adopt'
+
+      # 3. Construcción con Gradle
+      - name: Run Build
+        run: ./gradlew build
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }} # Token para autenticación si es necesario
+
+  continuous-delivery:
+    name: Continuous Delivery
+    needs: continuous-integration
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout del código
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Inicio de sesión en GHCR
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT_TOKEN }}
+
+      # 3. Construcción y publicación de la imagen Docker
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ghcr.io/teamverdeingsis/permissions:${{ github.ref_name }}
+            ghcr.io/teamverdeingsis/permissions:latest
+          build-args: |
+            USERNAME=${{ secrets.USERNAME }}
+            PAT_TOKEN=${{ secrets.PAT_TOKEN }}
+
+  update-virtual-machine:
+    name: Update Virtual Machine
+    needs: continuous-delivery
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Ejecuta comandos SSH para desplegar la nueva versión
+      - name: Execute Remote SSH Commands
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ github.ref_name == 'main' && '172.179.233.92' || '4.242.32.158' }}
+          username: teamVerde1
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            sudo docker stop permissions-service-infra || true
+            sudo docker rm permissions-service-infra || true
+            sudo docker rmi ghcr.io/teamverdeingsis/permissions:latest || true
+            sudo docker pull ghcr.io/teamverdeingsis/permissions:latest
+            sudo docker run -d --name permissions-service-infra -p 8081:8081 ghcr.io/teamverdeingsis/permissions:latest

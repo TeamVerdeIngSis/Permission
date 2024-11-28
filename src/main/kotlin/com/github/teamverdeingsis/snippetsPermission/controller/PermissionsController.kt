@@ -8,6 +8,7 @@ import com.github.teamverdeingsis.snippetsPermission.service.PermissionService
 import jakarta.persistence.Id
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -57,4 +58,15 @@ class PermissionsController(
         val permission = PermissionType.READ
         return permissionService.createPermission(permissionOfUserInSnippet.userId, permissionOfUserInSnippet.snippetId, permission)
     }
+
+    @PostMapping("/check-owner")
+    fun checkOwner(@RequestBody request: CheckOwnerRequest): ResponseEntity<String> {
+        return permissionService.checkIfOwner(request.snippetId, request.userId)
+    }
+
+    data class CheckOwnerRequest(
+        val snippetId: UUID,
+        val userId: String
+    )
+
 }

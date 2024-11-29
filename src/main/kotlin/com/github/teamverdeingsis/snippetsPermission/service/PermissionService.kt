@@ -6,6 +6,7 @@ import com.github.teamverdeingsis.snippetsPermission.model.PermissionType
 import com.github.teamverdeingsis.snippetsPermission.repository.PermissionRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -47,4 +48,17 @@ class PermissionService(
     fun getPermissionByUserIdAndSnippetId(userId: String, snippetId: UUID): Permission? {
         return permissionRepository.findByUserIdAndSnippetId(userId, snippetId)
     }
+
+    fun checkIfOwner(snippetId: UUID, userId: String): ResponseEntity<String> {
+        val permission = permissionRepository.findByUserIdAndSnippetId(userId, snippetId)
+            ?: return ResponseEntity.badRequest().body("Snippet with the provided ID doesn't exist or no permission found for the user")
+
+        return if (permission.permission == PermissionType.WRITE) {
+            ResponseEntity.ok("User is the owner of the snippet")
+        } else {
+            ResponseEntity.badRequest().body("User is not the owner of the snippet")
+        }
+    }
+
+
 }

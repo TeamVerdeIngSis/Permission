@@ -81,4 +81,4 @@ jobs:
             sudo docker rm permissions-service-infra || true
             sudo docker rmi ghcr.io/teamverdeingsis/permissions:latest || true
             sudo docker pull ghcr.io/teamverdeingsis/permissions:latest
-            sudo docker compose permisionsServiceInfra -d
+            sudo docker compose up permisionsServiceInfra -d

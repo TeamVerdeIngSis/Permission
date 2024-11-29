@@ -1,10 +1,8 @@
 package com.github.teamverdeingsis.snippetsPermission.service
 
-import com.github.teamverdeingsis.snippetsPermission.controller.PermissionsController
 import com.github.teamverdeingsis.snippetsPermission.model.Permission
 import com.github.teamverdeingsis.snippetsPermission.model.PermissionType
 import com.github.teamverdeingsis.snippetsPermission.repository.PermissionRepository
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -27,7 +25,6 @@ class PermissionService(
         val existingPermission = permissionRepository.findByUserIdAndSnippetId(userId, snippetId)
         if (existingPermission != null) {
             return existingPermission
-            //TODO, esta mal esto, deberia tirar alguna excepcion
         }
         val permission = Permission(userId = userId, snippetId = snippetId, permission = permissionType)
         return permissionRepository.save(permission)
@@ -59,6 +56,7 @@ class PermissionService(
             ResponseEntity.badRequest().body("User is not the owner of the snippet")
         }
     }
+
 
 
 }

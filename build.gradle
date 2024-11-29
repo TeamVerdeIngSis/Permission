@@ -1,11 +1,10 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
 	id 'org.jetbrains.kotlin.jvm' version '1.9.25'
 	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.25'
 	id 'org.springframework.boot' version '3.3.5'
 	id 'io.spring.dependency-management' version '1.1.6'
 	id 'org.jetbrains.kotlin.plugin.jpa' version '1.9.25'
+	id 'jacoco'
 }
 
 group = 'teamVerde'
@@ -14,12 +13,6 @@ version = '0.0.1-SNAPSHOT'
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
-	}
-}
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
 	}
 }
 
@@ -40,8 +33,9 @@ dependencies {
 	testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.postgresql:postgresql:42.6.0'
-
+	testImplementation 'com.h2database:h2'
 	implementation 'com.newrelic.agent.java:newrelic-api:7.6.0'
+	testImplementation 'org.mockito.kotlin:mockito-kotlin:4.1.0'
 }
 
 kotlin {
@@ -56,7 +50,55 @@ allOpen {
 	annotation 'jakarta.persistence.Embeddable'
 }
 
-
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
+
+jacocoTestReport {
+	dependsOn test
+
+	reports {
+		xml {
+			destination file("$buildDir/reports/jacoco/test-coverage.xml")
+		}
+		html {
+			destination file("$buildDir/reports/jacoco/html")
+		}
+	}
+
+	classDirectories.setFrom(
+			fileTree(dir: "$buildDir/classes/kotlin/main", includes: [
+					'com/github/teamverdeingsis/snippetsPermission/service/**/*.class'
+			])
+	)
+}
+
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				counter = 'INSTRUCTION'
+				value = 'COVEREDRATIO'
+				minimum = 0.80
+			}
+		}
+	}
+}
+
+
+jacoco {
+	toolVersion = '0.8.9'
+}
+
+tasks.check {
+	dependsOn jacocoTestCoverageVerification
+}
+
+tasks.test {
+	useJUnitPlatform()
+	include '**/*Test.class'
+	finalizedBy jacocoTestReport
+}
+

@@ -1,4 +1,4 @@
-package com.github.teamverdeingsis.snippetsPermission.service
+package team.github.teamverdeingsis.snippetsPermission.service
 
 import com.github.teamverdeingsis.snippetsPermission.model.Permission
 import com.github.teamverdeingsis.snippetsPermission.model.PermissionType
@@ -11,7 +11,8 @@ import java.util.*
 @Service
 class PermissionService(
     @Autowired
-    private val permissionRepository: PermissionRepository) {
+    private val permissionRepository: PermissionRepository,
+) {
 
     fun getAllPermissions(): List<Permission> {
         return permissionRepository.findAll()
@@ -56,7 +57,4 @@ class PermissionService(
             ResponseEntity.badRequest().body("User is not the owner of the snippet")
         }
     }
-
-
-
 }

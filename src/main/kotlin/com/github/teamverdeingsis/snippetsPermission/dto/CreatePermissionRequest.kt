@@ -1,9 +1,8 @@
-package com.github.teamverdeingsis.snippetsPermission.DTO
-
 import com.github.teamverdeingsis.snippetsPermission.model.PermissionType
 import java.util.*
 
-data class PermissionOfUserInSnippet (
+data class CreatePermissionRequest(
     val userId: String,
     val snippetId: UUID,
+    val permission: PermissionType,
 )

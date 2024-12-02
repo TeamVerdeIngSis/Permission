@@ -1,4 +1,4 @@
-package com.github.teamverdeingsis.snippetsPermission.interceptor
+package team.github.teamverdeingsis.snippetsPermission.interceptor
 
 import com.github.teamverdeingsis.snippetsPermission.server.CorrelationIdFilter
 import com.newrelic.api.agent.Trace
@@ -15,7 +15,6 @@ class NewRelicInterceptor : ClientHttpRequestInterceptor {
     @Trace(dispatcher = true)
     @Throws(IOException::class)
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-
         val id = MDC.get(CorrelationIdFilter.CORRELATION_ID_KEY) ?: UUID.randomUUID().toString()
         request.headers.add(CorrelationIdFilter.CORRELATION_ID_HEADER, id)
         println("BBB")
@@ -23,4 +22,3 @@ class NewRelicInterceptor : ClientHttpRequestInterceptor {
         return execution.execute(request, body)
     }
 }
-

@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito.mock
-import org.mockito.kotlin.whenever
 import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.whenever
 import java.util.*
 import kotlin.test.assertEquals
 
@@ -28,7 +28,7 @@ class PermissionServiceTest {
     fun `test getAllPermissions returns all permissions`() {
         val permissions = listOf(
             Permission(userId = "user1", snippetId = UUID.randomUUID(), permission = PermissionType.READ),
-            Permission(userId = "user2", snippetId = UUID.randomUUID(), permission = PermissionType.WRITE)
+            Permission(userId = "user2", snippetId = UUID.randomUUID(), permission = PermissionType.WRITE),
         )
 
         whenever(permissionRepository.findAll()).thenReturn(permissions)
@@ -59,7 +59,7 @@ class PermissionServiceTest {
         val userId = "user1"
         val permissions = listOf(
             Permission(userId = userId, snippetId = UUID.randomUUID(), permission = PermissionType.READ),
-            Permission(userId = userId, snippetId = UUID.randomUUID(), permission = PermissionType.WRITE)
+            Permission(userId = userId, snippetId = UUID.randomUUID(), permission = PermissionType.WRITE),
         )
 
         whenever(permissionRepository.findByUserId(userId)).thenReturn(permissions)
@@ -88,7 +88,7 @@ class PermissionServiceTest {
         val snippetId = UUID.randomUUID()
         val permissions = listOf(
             Permission(userId = "user1", snippetId = snippetId, permission = PermissionType.READ),
-            Permission(userId = "user2", snippetId = snippetId, permission = PermissionType.WRITE)
+            Permission(userId = "user2", snippetId = snippetId, permission = PermissionType.WRITE),
         )
 
         whenever(permissionRepository.findBySnippetId(snippetId)).thenReturn(permissions)
@@ -136,7 +136,7 @@ class PermissionServiceTest {
 
         assertEquals(
             "User is the owner of the snippet",
-            result.body
+            result.body,
         )
     }
 
@@ -152,7 +152,7 @@ class PermissionServiceTest {
 
         assertEquals(
             "User is not the owner of the snippet",
-            result.body
+            result.body,
         )
     }
 
@@ -167,8 +167,7 @@ class PermissionServiceTest {
 
         assertEquals(
             "Snippet with the provided ID doesn't exist or no permission found for the user",
-            result.body
+            result.body,
         )
     }
 }
-

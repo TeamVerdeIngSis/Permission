@@ -1,4 +1,4 @@
-package com.github.teamverdeingsis.snippetsPermission.repository
+package team.github.teamverdeingsis.snippetsPermission.repository
 
 import com.github.teamverdeingsis.snippetsPermission.model.Permission
 import org.springframework.data.jpa.repository.JpaRepository
@@ -11,5 +11,4 @@ interface PermissionRepository : JpaRepository<Permission, UUID> {
     fun findBySnippetId(snippetId: UUID): List<Permission>
     fun findByUserIdAndSnippetId(userId: String, snippetId: UUID): Permission?
     fun findSnippetsByUserId(userId: String): List<Permission>?
-
 }

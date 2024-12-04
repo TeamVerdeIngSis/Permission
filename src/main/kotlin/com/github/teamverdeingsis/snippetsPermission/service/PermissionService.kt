@@ -1,4 +1,4 @@
-package team.github.teamverdeingsis.snippetsPermission.service
+package com.github.teamverdeingsis.snippetsPermission.service
 
 import com.github.teamverdeingsis.snippetsPermission.model.Permission
 import com.github.teamverdeingsis.snippetsPermission.model.PermissionType

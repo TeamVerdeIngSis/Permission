@@ -1,5 +1,6 @@
 package team.github.teamverdeingsis.snippetsPermission.server
 
+import com.github.teamverdeingsis.snippetsPermission.server.CorrelationIdFilter
 import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException

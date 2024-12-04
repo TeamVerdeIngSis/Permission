@@ -1,4 +1,4 @@
-package team.github.teamverdeingsis.snippetsPermission.interceptor
+package com.github.teamverdeingsis.snippetsPermission.interceptor
 
 import com.github.teamverdeingsis.snippetsPermission.server.CorrelationIdFilter
 import com.newrelic.api.agent.Trace

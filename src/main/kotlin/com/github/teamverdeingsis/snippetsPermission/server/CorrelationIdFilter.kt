@@ -1,4 +1,4 @@
-package team.github.teamverdeingsis.snippetsPermission.server
+package com.github.teamverdeingsis.snippetsPermission.server
 
 import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain

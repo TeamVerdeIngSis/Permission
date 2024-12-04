@@ -1,4 +1,4 @@
-package team.github.teamverdeingsis.snippetsPermission.model
+package com.github.teamverdeingsis.snippetsPermission.model
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

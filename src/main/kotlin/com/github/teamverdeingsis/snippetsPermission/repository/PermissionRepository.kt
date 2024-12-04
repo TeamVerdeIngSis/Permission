@@ -1,4 +1,4 @@
-package team.github.teamverdeingsis.snippetsPermission.repository
+package com.github.teamverdeingsis.snippetsPermission.repository
 
 import com.github.teamverdeingsis.snippetsPermission.model.Permission
 import org.springframework.data.jpa.repository.JpaRepository

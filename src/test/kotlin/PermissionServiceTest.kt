@@ -9,8 +9,9 @@ import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito.mock
 import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
-import java.util.*
+import java.util.UUID
 import kotlin.test.assertEquals
 
 @ExtendWith(MockitoExtension::class)
@@ -169,5 +170,31 @@ class PermissionServiceTest {
             "Snippet with the provided ID doesn't exist or no permission found for the user",
             result.body,
         )
+    }
+
+    @Test
+    fun `test hola returns expected string`() {
+        val result = permissionService.hola()
+        assertEquals("Hola", result)
+    }
+
+    @Test
+    fun `test createPermission creates new permission if not exists`() {
+        val userId = "newUser"
+        val snippetId = UUID.randomUUID()
+        val permissionType = PermissionType.READ
+
+        // Mock para que retorne null si no existe la permisión
+        whenever(permissionRepository.findByUserIdAndSnippetId(userId, snippetId)).thenReturn(null)
+
+        // Crear objeto Permission esperado
+        val newPermission = Permission(userId, snippetId, permissionType)
+
+        whenever(permissionRepository.save(any())).thenReturn(newPermission)
+
+        // Llamar al servicio y validar el resultado
+        val result = permissionService.createPermission(userId, snippetId, permissionType)
+
+        assertEquals(newPermission, result)
     }
 }
